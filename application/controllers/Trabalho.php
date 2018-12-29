@@ -16,13 +16,13 @@ class Trabalho extends CI_Controller{
      */
     function index()
     {
-        $params['limit'] = 10; 
+        $params['limit'] = 100; 
         $params['offset'] = ($this->input->get('per_page')) ? $this->input->get('per_page') : 0;
         
         $config = $this->config->item('pagination');
         $config['base_url'] = site_url('trabalho/index?');
         $config['total_rows'] = $this->Trabalho_model->get_all_trabalhos_count();
-        $config['per_page'] = 10; 
+        $config['per_page'] = 100; 
 
         $this->pagination->initialize($config);
 
@@ -37,6 +37,22 @@ class Trabalho extends CI_Controller{
      */
     function add()
     {   
+        //converte valores de data pra salvar no banco
+        
+        $v_data_in = $this->input->post('data_inicio');
+        $v_data_fn = $this->input->post('data_final');
+        if ($v_data_in!='')
+        {
+        $d_inicio = new DateTime($v_data_in);
+        $inicio_t = $d_inicio->format('Y-m-d H:i:s');
+        }
+        if ($v_data_fn!='')
+        {
+        $d_final = new DateTime($v_data_fn);
+        $final_t = $d_final->format('Y-m-d H:i:s');
+        }
+        //
+
         $this->load->library('form_validation');
 
 		$this->form_validation->set_rules('data_inicio','Data Inicio','required');
@@ -51,8 +67,8 @@ class Trabalho extends CI_Controller{
 				'projeto_id' => $this->input->post('projeto_id'),
 				'tarefa_id' => $this->input->post('tarefa_id'),
 				'nota' => $this->input->post('nota'),
-				'data_inicio' => $this->input->post('data_inicio'),
-				'data_final' => $this->input->post('data_final'),
+				'data_inicio' => $inicio_t,
+				'data_final' => $final_t,
 				'inicio' => $this->input->post('inicio'),
 				'final' => $this->input->post('final'),
 				'horas' => $this->input->post('horas'),
@@ -148,5 +164,14 @@ class Trabalho extends CI_Controller{
         else
             show_error('The trabalho you are trying to delete does not exist.');
     }
+
+    /***************************************************/
+    /* Lista de Funções cronoTimer
+    /***************************************************/
+    function inicia_cronometro()
+    {
+
+    }
+
     
 }

@@ -7,23 +7,18 @@
             <?php echo form_open('trabalho/add'); ?>
           	<div class="box-body">
           		<div class="row clearfix">
-					<div class="col-md-6">
-						<div class="form-group">
-							<input type="checkbox" name="livre" value="1"  id="livre" />
-							<label for="livre" class="control-label">Livre</label>
-						</div>
-					</div>
-					<div class="col-md-6">
+					
+					<!-- <div class="col-md-6">
 						<div class="form-group">
 							<input type="checkbox" name="faturado" value="1"  id="faturado" />
 							<label for="faturado" class="control-label">Faturado</label>
 						</div>
-					</div>
+					</div> -->
 					<div class="col-md-6">
 						<label for="projeto_id" class="control-label"><span class="text-danger">*</span>Projeto</label>
 						<div class="form-group">
 							<select name="projeto_id" class="form-control">
-								<option value="">select projeto</option>
+								<option value="">Selecione o Projeto</option>
 								<?php 
 								foreach($all_projetos as $projeto)
 								{
@@ -108,12 +103,18 @@
 							<input type="text" name="rendimento" value="<?php echo $this->input->post('rendimento'); ?>" class="form-control" id="rendimento" />
 						</div>
 					</div>
-					<div class="col-md-6">
+					<!-- <div class="col-md-6">
 						<label for="fatura_id" class="control-label">Fatura Id</label>
 						<div class="form-group">
 							<input type="text" name="fatura_id" value="<?php echo $this->input->post('fatura_id'); ?>" class="form-control" id="fatura_id" />
 						</div>
 					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<input type="checkbox" name="livre" value="1"  id="livre" />
+							<label for="livre" class="control-label">Livre</label>
+						</div>
+					</div> -->
 				</div>
 			</div>
           	<div class="box-footer">

@@ -1,3 +1,8 @@
+Sistema em Desenvolvimento
+
+Desenvolvido por Marcelo Motta, é apenas um projeto pessoal
+desenvolvido com base no Framework Codeigniter, leia a documentação pra saber mais...
+
 ###################
 What is CodeIgniter
 ###################

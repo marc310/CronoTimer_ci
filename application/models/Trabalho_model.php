@@ -34,6 +34,8 @@ class Trabalho_model extends CI_Model
     function get_all_trabalhos($params = array())
     {
         $this->db->order_by('id_trabalho', 'desc');
+        $this->db->join('projetos','itenstrabalho.projeto_id = projetos.id_projeto');
+        $this->db->join('tarefas','itenstrabalho.tarefa_id = tarefas.id_tarefa');
         if(isset($params) && !empty($params))
         {
             $this->db->limit($params['limit'], $params['offset']);
