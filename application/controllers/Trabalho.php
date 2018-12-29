@@ -99,6 +99,21 @@ class Trabalho extends CI_Controller{
      */
     function edit($id_trabalho)
     {   
+        //converte valores de data pra salvar no banco
+        
+        $v_data_in = $this->input->post('data_inicio');
+        $v_data_fn = $this->input->post('data_final');
+        if ($v_data_in!='')
+        {
+        $d_inicio = new DateTime($v_data_in);
+        $inicio_t = $d_inicio->format('Y-m-d H:i:s');
+        }
+        if ($v_data_fn!='')
+        {
+        $d_final = new DateTime($v_data_fn);
+        $final_t = $d_final->format('Y-m-d H:i:s');
+        }
+        //
         // check if the trabalho exists before trying to edit it
         $data['trabalho'] = $this->Trabalho_model->get_trabalho($id_trabalho);
         
@@ -118,8 +133,8 @@ class Trabalho extends CI_Controller{
 					'projeto_id' => $this->input->post('projeto_id'),
 					'tarefa_id' => $this->input->post('tarefa_id'),
 					'nota' => $this->input->post('nota'),
-					'data_inicio' => $this->input->post('data_inicio'),
-					'data_final' => $this->input->post('data_final'),
+					'data_inicio' => $inicio_t,
+					'data_final' => $final_t,
 					'inicio' => $this->input->post('inicio'),
 					'final' => $this->input->post('final'),
 					'horas' => $this->input->post('horas'),
