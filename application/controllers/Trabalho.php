@@ -27,6 +27,12 @@ class Trabalho extends CI_Controller{
         $this->pagination->initialize($config);
 
         $data['trabalhos'] = $this->Trabalho_model->get_all_trabalhos($params);
+
+        $this->load->model('Projeto_model');
+        $data['all_projetos'] = $this->Projeto_model->get_all_projetos();
+
+        $this->load->model('Tarefa_model');
+        $data['all_tarefas'] = $this->Tarefa_model->get_all_tarefas();
         
         $data['_view'] = 'trabalho/index';
         $this->load->view('layouts/main',$data);
