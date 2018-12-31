@@ -2,7 +2,7 @@
     <div class="col-md-12">
       	<div class="box box-info">
             <div class="box-header with-border">
-              	<h3 class="box-title">Trabalho Edit</h3>
+              	<h3 class="box-title">ID: <?php echo $trabalho['id_trabalho']; ?></h3>
             </div>
 			<?php echo form_open('trabalho/edit/'.$trabalho['id_trabalho']); ?>
 			<div class="box-body">
@@ -61,8 +61,14 @@
 					</div>
 					<div class="col-md-6">
 						<label for="data_inicio" class="control-label"><span class="text-danger">*</span>Data Inicio</label>
+						<?php 
+						
+						// $dataInicial = $this->input->post('data_inicio');
+						// $d_in = date('d/m/Y', strtotime($dataInicial)); 
+
+						?>
 						<div class="form-group">
-							<input type="text" name="data_inicio" value="<?php echo ($this->input->post('data_inicio') ? $this->input->post('data_inicio') : $trabalho['data_inicio']); ?>" class="has-datetimepicker form-control" id="data_inicio" />
+							<input type="text" name="data_inicio" value="<?php echo $this->input->post('data_final') ? $this->input->post('data_final') : $trabalho['data_inicio']; ?>" class="has-datetimepicker form-control" id="data_inicio" />
 							<span class="text-danger"><?php echo form_error('data_inicio');?></span>
 						</div>
 					</div>

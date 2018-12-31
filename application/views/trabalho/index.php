@@ -10,7 +10,7 @@
 <!-- ########################################################################################### -->
 
             		<!-- Button trigger modal -->
-					<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal">
+					<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modalAdd">
 					  Iniciar
 					</button>
 
@@ -20,7 +20,7 @@
 
 <!-- ########################################################################################### -->
 
-            <div class="box-body">
+            <div class="box-body" id="trabalho_table">
                 <table class="table table-striped">
                     <tr>
 						<th>ID</th>
@@ -52,9 +52,10 @@
 						<td hidden><?php echo $i['faturado']; ?></td>
 						<td hidden><?php echo $i['fatura_id']; ?></td>
 						<td>
-                            <a href="<?php echo site_url('trabalho/edit/'.$i['id_trabalho']); ?>" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span> </a> 
-                            <a href="<?php echo site_url('trabalho/remove/'.$i['id_trabalho']); ?>" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span> </a>
+                            <a href="<?php echo site_url('trabalho/edit/'.$i['id_trabalho']); ?>" data-toggle="modal" data-target="#modalEdit" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span> </a> <!-- editar -->
+                            <a href="<?php echo site_url('trabalho/remove/'.$i['id_trabalho']); ?>" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span> </a> <!-- deletar -->
                         </td>
+						<td><input type="button" name="edit" value="Edit" id="<?php echo $i['id_trabalho']; ?>" class="btn btn-info btn-xs edit_data" /></td> 
                     </tr>
                     <?php } ?>
                 </table>
@@ -66,23 +67,40 @@
     </div>
 </div>
 
-<!-- ########################################################################################### -->
-<!-- Modal -->
+<!-- <?php echo site_url('trabalho/edit/'.$i['id_trabalho']); ?> -->
+
 <!-- ########################################################################################### -->
 
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- ########################################################################################### -->
+
+<!-- ########################################################################################### -->
+<!-- ########################################################################################### -->
+
+<!-- ########################################################################################### -->
+<!-- ########################################################################################### -->
+
+
+<!-- ########################################################################################### -->
+<!-- ########################################################################################### -->
+<!-- ################################## MODAL ADICIONAR ######################################## -->
+<!-- ########################################################################################### -->
+<!-- ########################################################################################### -->
+        
+<!-- ########################################################################################### -->
+<!-- Modal configs -->
+<!-- ########################################################################################### -->
+
+<div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="modalAddLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">CronoTimer</h5>
+        <h5 class="modal-title" id="modalAddLabel">CronoTimer</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
 
-<!-- ########################################################################################### -->
-        
         <?php echo form_open('trabalho/add'); ?>
 
         <div class="box-body">
@@ -197,7 +215,34 @@
 					</div> -->
 				</div>
 			</div>
+
+					<?php
+					// $datestring = "Year: %Y Month: %m Day: %d - %h:%i %s";
+					// $time = time();
+
+					$now = time();
+					// $human = unix_to_human($now);
+					// $unix = human_to_unix($human);
+					$dataUnix = date('Y-m-d H:i:s', $now);
+					
+
+					echo $now . " e a assim com strtotime: " . $dataUnix;
+
+					// echo " || " . strtotime($dataAtual);
+
+					//echo mdate($datestring, $time);
+					//echo $unix . " and " . $human;
+					?>
+
           	
+          	<div>
+				<button type="button" href="<?php echo site_url('trabalho/inicia_cronometro'); ?>" class="btn btn-outline-success" onclick="inicia_cronometro()">
+            		<i class="fa fa-check"></i> Iniciar
+            	</button>
+	        <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+	        <button type="button" class="btn btn-primary">Salvar</button> -->
+	      
+	      </div>
 
 <!-- ########################################################################################### -->
 
@@ -215,3 +260,136 @@
     </div>
   </div>
 </div>
+
+
+<!-- ########################################################################################### -->
+<!-- ########################################################################################### -->
+<!-- #################################### MODAL EDITAR ######################################### -->
+<!-- ########################################################################################### -->
+<!-- ########################################################################################### -->
+
+
+<div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="modalEditLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalEditLabel">CronoTimer</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+<!-- ########################################################################################### -->
+
+
+<!-- ########################################################################################### -->
+
+      </div>
+      <div class="modal-footer">
+				<button type="submit" class="btn btn-success">
+            		<i class="fa fa-check"></i> Save
+            	</button>
+        <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary">Salvar</button> -->
+      
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ########################################################################################### -->
+<!-- ########################################################################################### -->
+<!-- ####################################### SCRIPT ############################################ -->
+<!-- ########################################################################################### -->
+<!-- ########################################################################################### -->
+
+<script>  
+ $(document).ready(function(){  
+      $('#add').click(function(){  
+           $('#insert').val("Insert");  
+           $('#insert_form')[0].reset();  
+      });  
+      $(document).on('click', '.edit_data', function(){  
+           var itenstrabalho = $(this).attr("id_trabalho");  
+           $.ajax({  
+                url:'<?php echo site_url('trabalho/edit/'.$i['id_trabalho']); ?>',  
+                method:"POST",  
+                data:{id_trabalho:id_trabalho},  
+                dataType:"json",  
+                success:function(data){  
+                     $('#projeto_id').val(data.projeto_id);  
+                     $('#tarefa_id').val(data.tarefa_id);  
+                     $('#nota').val(data.nota);
+                     $('#data_inicio').val(data.data_inicio);
+                     $('#insert').val("Update");  
+                     $('#add_data_Modal').modal('show');  
+
+     				// 'projeto_id' => $this->input->post('projeto_id'),
+					// 'tarefa_id' => $this->input->post('tarefa_id'),
+					// 'nota' => $this->input->post('nota'),
+					// 'data_inicio' => $inicio_t,
+					// 'data_final' => $final_t,
+					// 'inicio' => $this->input->post('inicio'),
+					// 'final' => $this->input->post('final'),
+					// 'horas' => $this->input->post('horas'),
+					// 'horaInt' => $this->input->post('horaInt'),
+					// 'moeda' => $this->input->post('moeda'),
+					// 'rendimento' => $this->input->post('rendimento'),
+                }  
+           });  
+      });  
+      // $('#insert_form').on("submit", function(event){  
+      //      event.preventDefault();  
+      //      if($('#name').val() == "")  
+      //      {  
+      //           alert("Name is required");  
+      //      }  
+      //      else if($('#address').val() == '')  
+      //      {  
+      //           alert("Address is required");  
+      //      }  
+      //      else if($('#designation').val() == '')  
+      //      {  
+      //           alert("Designation is required");  
+      //      }  
+      //      else if($('#age').val() == '')  
+      //      {  
+      //           alert("Age is required");  
+      //      }  
+      //      else  
+      //      {  
+      //           $.ajax({  
+      //                url:"insert.php",  
+      //                method:"POST",  
+      //                data:$('#insert_form').serialize(),  
+      //                beforeSend:function(){  
+      //                     $('#insert').val("Inserting");  
+      //                },  
+      //                success:function(data){  
+      //                     $('#insert_form')[0].reset();  
+      //                     $('#add_data_Modal').modal('hide');  
+      //                     $('#trabalho_table').html(data);  
+      //                }  
+      //           });  
+      //      }  
+      // });  
+      $(document).on('click', '.view_data', function(){  
+           var employee_id = $(this).attr("id");  
+           if(employee_id != '')  
+           {  
+                $.ajax({  
+                     url:"select.php",  
+                     method:"POST",  
+                     data:{employee_id:employee_id},  
+                     success:function(data){  
+                          $('#employee_detail').html(data);  
+                          $('#dataModal').modal('show');  
+                     }  
+                });  
+           }            
+      });  
+      $(".datepicker" ).datepicker({ dateFormat: 'dd/mm/yy' }); 
+ });  
+ </script>

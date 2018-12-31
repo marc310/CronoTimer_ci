@@ -105,20 +105,7 @@ class Trabalho extends CI_Controller{
      */
     function edit($id_trabalho)
     {   
-        //converte valores de data pra salvar no banco
         
-        $v_data_in = $this->input->post('data_inicio');
-        $v_data_fn = $this->input->post('data_final');
-        if ($v_data_in!='')
-        {
-        $d_inicio = new DateTime($v_data_in);
-        $inicio_t = $d_inicio->format('Y-m-d H:i:s');
-        }
-        if ($v_data_fn!='')
-        {
-        $d_final = new DateTime($v_data_fn);
-        $final_t = $d_final->format('Y-m-d H:i:s');
-        }
         //
         // check if the trabalho exists before trying to edit it
         $data['trabalho'] = $this->Trabalho_model->get_trabalho($id_trabalho);
@@ -151,7 +138,7 @@ class Trabalho extends CI_Controller{
                 );
 
                 $this->Trabalho_model->update_trabalho($id_trabalho,$params);            
-                redirect('trabalho/index');
+                //redirect('trabalho/index');
             }
             else
             {
@@ -161,8 +148,7 @@ class Trabalho extends CI_Controller{
 				$this->load->model('Tarefa_model');
 				$data['all_tarefas'] = $this->Tarefa_model->get_all_tarefas();
 
-                $data['_view'] = 'trabalho/edit';
-                $this->load->view('layouts/main',$data);
+                $this->load->view('trabalho/edit',$data);
             }
         }
         else
@@ -191,6 +177,21 @@ class Trabalho extends CI_Controller{
     /***************************************************/
     function inicia_cronometro()
     {
+        // $datestring = 'Year: %Y Month: %m Day: %d - %h:%i %a';
+        // //$time = time();
+        // $time = $this->input->post('data_inicio');
+        // //echo mdate($datestring, $time);
+        $now = time();
+        // $human = unix_to_human($now);
+        // $unix = human_to_unix($human);
+        $dataUnix = date('Y-m-d H:i:s', $now);
+
+        echo $now . " e a assim com strtotime: " . $dataUnix;
+
+        $data['timeTest'] = 'echo mdate($datestring, $time)';
+
+        //$data['_view'] = 'trabalho/index';
+        $this->load->view('layouts/main',$data);
 
     }
 
