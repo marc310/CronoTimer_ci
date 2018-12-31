@@ -95,8 +95,8 @@ class Trabalho extends CI_Controller{
 			$this->load->model('Tarefa_model');
 			$data['all_tarefas'] = $this->Tarefa_model->get_all_tarefas();
             
-            $data['_view'] = 'trabalho/add';
-            $this->load->view('layouts/main',$data);
+            //$data['_view'] = 'trabalho/add';
+            $this->load->view('trabalho/add',$data);
         }
     }  
 
@@ -105,6 +105,8 @@ class Trabalho extends CI_Controller{
      */
     function edit($id_trabalho)
     {   
+        //converte valores de data pra salvar no banco
+        
         
         //
         // check if the trabalho exists before trying to edit it
@@ -126,8 +128,8 @@ class Trabalho extends CI_Controller{
 					'projeto_id' => $this->input->post('projeto_id'),
 					'tarefa_id' => $this->input->post('tarefa_id'),
 					'nota' => $this->input->post('nota'),
-					'data_inicio' => $inicio_t,
-					'data_final' => $final_t,
+					'data_inicio' => $this->input->post('data_inicio'),
+					'data_final' => $this->input->post('data_final'),
 					'inicio' => $this->input->post('inicio'),
 					'final' => $this->input->post('final'),
 					'horas' => $this->input->post('horas'),
@@ -138,7 +140,7 @@ class Trabalho extends CI_Controller{
                 );
 
                 $this->Trabalho_model->update_trabalho($id_trabalho,$params);            
-                //redirect('trabalho/index');
+                redirect('trabalho/index');
             }
             else
             {
