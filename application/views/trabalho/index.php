@@ -82,6 +82,8 @@
       <div class="modal-body">
 
 <!-- ########################################################################################### -->
+        
+        <?php echo form_open('trabalho/add'); ?>
 
         <div class="box-body">
           		<div class="row clearfix">
@@ -195,22 +197,21 @@
 					</div> -->
 				</div>
 			</div>
-          	<div class="box-footer">
-            	<button type="submit" class="btn btn-success">
-            		<i class="fa fa-check"></i> Save
-            	</button>
-          	</div>
-            <?php echo form_close(); ?>
+          	
 
 <!-- ########################################################################################### -->
 
       </div>
       <div class="modal-footer">
-
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary">Salvar</button>
+				<button type="submit" class="btn btn-success">
+            		<i class="fa fa-check"></i> Save
+            	</button>
+        <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary">Salvar</button> -->
       
       </div>
+            <?php echo form_close(); ?>
+
     </div>
   </div>
 </div>
