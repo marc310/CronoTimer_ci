@@ -10,7 +10,7 @@
 <!-- ########################################################################################### -->
 
             		<!-- Button trigger modal -->
-					<button type="button" class="btn btn-primary btn-sm" href="<?php echo site_url('trabalho/add'); ?>" data-toggle="modal" data-target="#modalAdd">
+					<button type="button" href="<?php echo site_url('trabalho/add'); ?>" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modalAdd">
 					  Iniciar
 					</button>
 
@@ -24,8 +24,8 @@
                 <table class="table table-striped">
                     <tr>
 						<th>ID</th>
-						<th>Projeto Id</th>
-						<th>Tarefa Id</th>
+						<th>Projeto</th>
+						<th>Tarefa</th>
 						<th>Nota</th>
 						<th>Início</th>
 						<th>Final</th>
@@ -54,7 +54,8 @@
 						<td>
                             <a href="<?php echo site_url('trabalho/edit/'.$i['id_trabalho']); ?>" data-toggle="modal" data-target="#modalEdit" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span> </a> <!-- editar -->
                             <a href="<?php echo site_url('trabalho/remove/'.$i['id_trabalho']); ?>" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span> </a> <!-- deletar -->
-                        </td> 
+                        </td>
+						
                     </tr>
                     <?php } ?>
                 </table>
@@ -69,15 +70,6 @@
 <!-- <?php echo site_url('trabalho/edit/'.$i['id_trabalho']); ?> -->
 
 <!-- ########################################################################################### -->
-
-<!-- ########################################################################################### -->
-
-<!-- ########################################################################################### -->
-<!-- ########################################################################################### -->
-
-<!-- ########################################################################################### -->
-<!-- ########################################################################################### -->
-
 
 <!-- ########################################################################################### -->
 <!-- ########################################################################################### -->
@@ -109,7 +101,28 @@
 <div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="modalEditLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalEditLabel">CronoTimer</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+<!-- ########################################################################################### -->
+
+
+<!-- ########################################################################################### -->
+
+      </div>
+      <div class="modal-footer">
+				<button type="submit" class="btn btn-success">
+            		<i class="fa fa-check"></i> Salvar
+            	</button>
+        <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary">Salvar</button> -->
       
+      </div>
     </div>
   </div>
 </div>
@@ -121,7 +134,7 @@
 <!-- ########################################################################################### -->
 <!-- ########################################################################################### -->
 
-<script>  
+<!-- <script>  
  $(document).ready(function(){  
       $('#add').click(function(){  
            $('#insert').val("Insert");  
@@ -208,19 +221,29 @@
       });  
       $(".datepicker" ).datepicker({ dateFormat: 'dd/mm/yy' }); 
  });  
- </script>
+ </script> -->
 
-
- <script type="text/javascript">
+<script type="text/javascript">
 
 $( ".btn-detalhes" ).click(function() {
 
-    var id = $(this).data('codigo');
-    $.get('http://localhost/getClientes.php?cliente='+id, function(html){
-        $('#myModal .modal-body').html(html);
-        $('#myModal').modal('show', {backdrop: 'static'});
+    var id = $(this).data('id_trabalho');
+    $.get('<?php echo site_url('trabalho/edit/') ?>'+id, function(html){
+        $('#modalEdit .modal-body').html(html);
+        $('#modalEdit').modal('show', {backdrop: 'static'});
     });
 
 }); 
+
+$.ajax({
+         url: '<?php echo base_url('Modal')?>',
+         type: 'post',
+         success:function(){
+            $('#render_modal').html(data);
+            $('a[data-target="cart_modal"]').click(function(){
+                $('#myModal').modal('show');
+            });
+         }
+      });
 
 </script>
