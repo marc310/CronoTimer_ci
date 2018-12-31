@@ -7,13 +7,13 @@
 			<?php echo form_open('trabalho/edit/'.$trabalho['id_trabalho']); ?>
 			<div class="box-body">
 				<div class="row clearfix">
-					<div class="col-md-6">
+					<div class="col-md-6" hidden>
 						<div class="form-group">
 							<input type="checkbox" name="livre" value="1" <?php echo ($trabalho['livre']==1 ? 'checked="checked"' : ''); ?> id='livre' />
 							<label for="livre" class="control-label">Livre</label>
 						</div>
 					</div>
-					<div class="col-md-6">
+					<div class="col-md-6" hidden>
 						<div class="form-group">
 							<input type="checkbox" name="faturado" value="1" <?php echo ($trabalho['faturado']==1 ? 'checked="checked"' : ''); ?> id='faturado' />
 							<label for="faturado" class="control-label">Faturado</label>
@@ -114,7 +114,7 @@
 							<input type="text" name="rendimento" value="<?php echo ($this->input->post('rendimento') ? $this->input->post('rendimento') : $trabalho['rendimento']); ?>" class="form-control" id="rendimento" />
 						</div>
 					</div>
-					<div class="col-md-6">
+					<div class="col-md-6" hidden>
 						<label for="fatura_id" class="control-label">Fatura Id</label>
 						<div class="form-group">
 							<input type="text" name="fatura_id" value="<?php echo ($this->input->post('fatura_id') ? $this->input->post('fatura_id') : $trabalho['fatura_id']); ?>" class="form-control" id="fatura_id" />
