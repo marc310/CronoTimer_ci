@@ -16,12 +16,14 @@ class Projeto extends CI_Controller{
     /***************************************************/
     function index()
     {
-        $params['limit'] = RECORDS_PER_PAGE; 
+        $params['limit'] = 10; 
         $params['offset'] = ($this->input->get('per_page')) ? $this->input->get('per_page') : 0;
         
         $config = $this->config->item('pagination');
         $config['base_url'] = site_url('projeto/index?');
         $config['total_rows'] = $this->Projeto_model->get_all_projetos_count();
+        $config['per_page'] = 10; 
+
         $this->pagination->initialize($config);
 
         $data['projetos'] = $this->Projeto_model->get_all_projetos($params);

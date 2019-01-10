@@ -16,12 +16,14 @@ class Fatura extends CI_Controller{
      */
     function index()
     {
-        $params['limit'] = RECORDS_PER_PAGE; 
+        $params['limit'] = 10; 
         $params['offset'] = ($this->input->get('per_page')) ? $this->input->get('per_page') : 0;
         
         $config = $this->config->item('pagination');
         $config['base_url'] = site_url('fatura/index?');
         $config['total_rows'] = $this->Fatura_model->get_all_fatura_count();
+        $config['per_page'] = 10; 
+
         $this->pagination->initialize($config);
 
         $data['fatura'] = $this->Fatura_model->get_all_fatura($params);

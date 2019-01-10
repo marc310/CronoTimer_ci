@@ -1,3 +1,5 @@
+<!-- MODAL -->
+
 <div class="row">
     <div class="col-md-12">
       	<div class="box box-info">
@@ -118,10 +120,32 @@
 				</div>
 			</div>
           	<div class="box-footer">
+
             	<button type="submit" class="btn btn-success">
-            		<i class="fa fa-check"></i> Save
+            		<i class="fa fa-check"></i> Salvar
             	</button>
+
+            	<button type="button" onclick="<?php echo site_url('trabalho/iniciar_cronometro'); ?>" class="btn btn-info">
+            		<i class="fa fa-check"></i> Iniciar
+            	</button>
+
           	</div>
+
+          	<?
+          		// TESTE DE FUNÇÃO PELO HELPER
+          	
+				$valor = "100000000";
+
+				echo "Valor Original: R$ " . $valor;
+
+				echo "<br />";
+
+				$this->load->helper("funcoes");
+
+				echo "Valor Formatado: R$ " . formata_preco($valor);
+			?>
+
+
             <?php echo form_close(); ?>
       	</div>
     </div>

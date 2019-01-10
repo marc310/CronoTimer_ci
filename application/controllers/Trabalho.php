@@ -177,7 +177,7 @@ class Trabalho extends CI_Controller{
     /***************************************************/
     /* Lista de Funções cronoTimer
     /***************************************************/
-    function inicia_cronometro()
+    public function inicia_cronometro()
     {
         // $datestring = 'Year: %Y Month: %m Day: %d - %h:%i %a';
         // //$time = time();
@@ -188,13 +188,18 @@ class Trabalho extends CI_Controller{
         // $unix = human_to_unix($human);
         $dataUnix = date('Y-m-d H:i:s', $now);
 
-        echo $now . " e a assim com strtotime: " . $dataUnix;
+        //echo $now . " e a assim com strtotime: " . $dataUnix;
 
-        $data['timeTest'] = 'echo mdate($datestring, $time)';
+        //$data['_view'] = 'trabalho/add';
+        //$this->load->view('layouts/main',$data);
+        //return $data;
 
-        //$data['_view'] = 'trabalho/index';
-        $this->load->view('layouts/main',$data);
+        //$this->data['agora'] = $dataUnix;
 
+        $data['_view'] = 'trabalho/add';
+        $this->load->view('trabalho/add', $this->$data);
+
+        
     }
 
     

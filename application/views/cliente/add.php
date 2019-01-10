@@ -30,8 +30,8 @@
 								<option value="">Selecione</option>
 								<?php 
 								$status_values = array(
-									'0'=>'Ativo',
-									'1'=>'Inativo',
+									'0'=>'Inativo',
+									'1'=>'Ativo',
 								);
 
 								foreach($status_values as $value => $display_text)
