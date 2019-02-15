@@ -44,9 +44,9 @@ class Trabalho extends CI_Controller{
     function add()
     {   
         //converte valores de data pra salvar no banco
-        
-        $v_data_in = $this->input->post('data_inicio');
-        $v_data_fn = $this->input->post('data_final');
+        $v_data_in = str_replace("/", "-", $this->input->post('data_inicio'));
+        $v_data_fn = str_replace("/", "-", $this->input->post('data_final'));
+        //
         if ($v_data_in!='')
         {
         $d_inicio = new DateTime($v_data_in);
@@ -58,7 +58,6 @@ class Trabalho extends CI_Controller{
         $final_t = $d_final->format('Y-m-d H:i:s');
         }
         //
-
         $this->load->library('form_validation');
 
 		$this->form_validation->set_rules('data_inicio','Data Inicio','required');
@@ -97,6 +96,7 @@ class Trabalho extends CI_Controller{
             
             //$data['_view'] = 'trabalho/add';
             $this->load->view('trabalho/add',$data);
+            
         }
     }  
 

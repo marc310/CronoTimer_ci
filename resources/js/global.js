@@ -2,7 +2,7 @@ $(document).ready(function() {
 	
 	if( $('.has-datetimepicker').length ) 
 	{
-		$('.has-datetimepicker').datetimepicker();
+		$('.has-datetimepicker').datetimepicker({format: 'DD/MM/YYYY HH:mm:ss'});
 	}
 	
 	if( $('.has-datepicker').length )

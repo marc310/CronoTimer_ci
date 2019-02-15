@@ -57,22 +57,22 @@
 						</div>
 					</div>
 					<div class="col-md-6">
-						<label for="data_inicio" class="control-label"><span class="text-danger">*</span>Data Inicio</label>
-						<div class="form-group">
+						<label for="data_inicio" class="control-label"><span class="text-danger">*</span>Data de Início</label>
+						<div class="form-group" id="Datainicio">
 							<input type="text" name="data_inicio" value="<?php echo $this->input->post('data_inicio'); ?>" class="has-datetimepicker form-control" id="data_inicio" />
 							<span class="text-danger"><?php echo form_error('data_inicio');?></span>
 						</div>
 					</div>
 					<div class="col-md-6">
 						<label for="data_final" class="control-label">Data Final</label>
-						<div class="form-group">
+						<div class="form-group" id="Datafinal">
 							<input type="text" name="data_final" value="<?php echo $this->input->post('data_final'); ?>" class="has-datetimepicker form-control" id="data_final" />
 						</div>
 					</div>
-					<div class="col-md-6">
+					<!-- <div class="col-md-6">
 						<label for="inicio" class="control-label">Inicio</label>
-						<div class="form-group">
-							<input type="text" name="inicio" value="<?php echo $this->input->post('inicio'); ?>" class="form-control" id="inicio" />
+						<div class="form-group" id="inicio">
+							<input type="text" name="inicio" value="<?php echo $this->input->post('inicio'); ?>" class="form-control"  />
 						</div>
 					</div>
 					<div class="col-md-6">
@@ -80,7 +80,7 @@
 						<div class="form-group">
 							<input type="text" name="final" value="<?php echo $this->input->post('final'); ?>" class="form-control" id="final" />
 						</div>
-					</div>
+					</div> -->
 					<div class="col-md-6">
 						<label for="horas" class="control-label">Horas</label>
 						<div class="form-group">
@@ -124,14 +124,23 @@
             	<button type="submit" class="btn btn-success">
             		<i class="fa fa-check"></i> Salvar
             	</button>
-
-            	<button type="button" onclick="<?php echo site_url('trabalho/iniciar_cronometro'); ?>" class="btn btn-info">
+            	
+            	<button type="button" id="iniciaCronometro" class="btn btn-info">
             		<i class="fa fa-check"></i> Iniciar
+            	</button>
+
+            	<button type="button" onclick="zerarCronometro()" id="resetCron" class="btn btn-danger">
+            		<i class="fa fa-check"></i> Zerar
             	</button>
 
           	</div>
 
+      		<div id="detalhes_work">
+      			
+      		</div>
+
           	<?
+
           		// TESTE DE FUNÇÃO PELO HELPER
           	
 				$valor = "100000000";
@@ -147,6 +156,13 @@
 
 
             <?php echo form_close(); ?>
+
       	</div>
     </div>
 </div>
+
+
+<script src="<?php echo site_url('resources/js/codex.js');?>"></script>
+<!-- ###  SCRIPT DATEPICKER  ### -->
+<script src="<?php echo site_url('resources/js/global.js');?>"></script>
+
