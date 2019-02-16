@@ -119,6 +119,10 @@
 					</div> -->
 				</div>
 			</div>
+
+      		<div id="detalhes_work">
+      		</div>
+			
           	<div class="box-footer">
 
             	<button type="submit" class="btn btn-success">
@@ -130,14 +134,11 @@
             	</button>
 
             	<button type="button" onclick="zerarCronometro()" id="resetCron" class="btn btn-danger">
-            		<i class="fa fa-check"></i> Zerar
+            		<i class="fa fa-check"></i> Cancelar
             	</button>
 
           	</div>
 
-      		<div id="detalhes_work">
-      			
-      		</div>
 
           	<?
 
