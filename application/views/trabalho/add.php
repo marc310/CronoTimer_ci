@@ -124,6 +124,7 @@
 			</div>
 
       		<div id="detalhes_work">
+      			<label id="label_detalhes" class="control-label">Detalhes</label>
       		</div>
 			
           	<div class="box-footer">
@@ -136,11 +137,11 @@
             		<i class="fa fa-check"></i> Iniciar
             	</button>
 
-            	<button type="button" onclick="zerarCronometro()" id="continuaCronometro" class="btn btn-info hide">
-            		<i class="fa fa-check"></i> Continuar
+            	<button type="button" id="cleanCronometro" class="btn btn-secondary hide">
+            		<i class="fa fa-check"></i> Limpar
             	</button>
 
-            	<button type="button" onclick="zerarCronometro()" id="resetCron" class="btn btn-danger">
+            	<button type="button" id="cancelaCron" class="btn btn-outline-secondary">
             		<i class="fa fa-check"></i> Cancelar
             	</button>
 

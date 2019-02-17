@@ -34,7 +34,9 @@
 			//document.getElementById("iniciaCronometro").disabled = true;
 			$('#iniciaCronometro').removeClass('btn-danger');
             $('#iniciaCronometro').addClass('btn-secondary');
-            $('#continuaCronometro').removeClass('hide');
+            $('#cleanCronometro').removeClass('hide');
+            $('#cancelaCron').removeClass('btn-secondary');
+            $('#cancelaCron').addClass('btn-danger');
             //
 			if (typeof datePickerObject !== "undefined")
 			{
@@ -43,9 +45,6 @@
 			}
 			else 
 			{
-			    //$('#btn-start-stop').removeClass('btn-success');
-                //$('#btn-start-stop').addClass('btn-danger');
-                //$('#navbar_timer').removeClass('hide');
 			  // it hasn't been initialized yet. Initialize it with the date.
 			  $ele.datetimepicker({
 			  format : 'DD/MM/YYYY HH:mm:ss',
@@ -63,6 +62,7 @@
     function validaForm() {
 	  var tarefa = document.forms["form-cronotimer"]["tarefa_id"].value;
 	  var projeto = document.forms["form-cronotimer"]["projeto_id"].value;
+	  var final = document.forms["form-cronotimer"]["data_final"].value;
 	  if (tarefa == "")
 	  {
 	    alert("Por Favor, Selecione a Tarefa");
@@ -73,10 +73,26 @@
 	  	alert("Por Favor, Selecione o Projeto");
 	    return false;
 	  }
+	  else if (final == "")
+	  {
+	  	alert("Atenção, o timer ainda está sendo executado.");
+	    return false;
+	  }
 	}
 	//
+	// LIMPAR TIMER
+	$("#cleanCronometro").click(function(){
+		clearInfo();
+		$('#iniciaCronometro').removeClass('btn-secondary');
+        $('#iniciaCronometro').addClass('btn-success');
+        $('#cleanCronometro').addClass('hide');
+        $('#cancelaCron').removeClass('btn-danger');
+        $('#cancelaCron').addClass('btn-secondary');
+     	document.getElementById('iniciaCronometro').innerHTML = '<i class="fa fa-check"></i> Iniciar';
+		$('#data_inicio, #data_final').val('').datetimepicker('update');
+		});
     // CANCELAR CRONOMETRO
-    $("#resetCron").click(function(){
+    $("#cancelaCron").click(function(){
 	    location.reload()
 		});
     //
@@ -90,6 +106,10 @@
     {
 	  var f = document.getElementById("data_final").value;
 	  document.getElementById("detalhes_work").innerHTML += "<br>" + "Data Final: " + f;
+	}
+	function clearInfo()
+	{
+		document.getElementById("detalhes_work").innerHTML = "";
 	}
 	//
     // função calcular horas
