@@ -10,12 +10,12 @@
 <!-- ########################################################################################### -->
 
             		<!-- Button trigger modal -->
-					<button type="button" href="<?php echo site_url('trabalho/add'); ?>" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modalAdd">
-					  Iniciar
-					</button>
+      					<button type="button" href="<?php echo site_url('trabalho/add'); ?>" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modalAdd">
+      					  Timer
+      					</button>
 
-                    <a href="<?php echo site_url('trabalho/add'); ?>" class="btn btn-success btn-sm">Novo</a> 
-                </div>
+                    <!-- <a href="<?php echo site_url('trabalho/add'); ?>" class="btn btn-success btn-sm">Novo</a>  -->
+              </div>
             </div>
 
 <!-- ########################################################################################### -->

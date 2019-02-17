@@ -122,11 +122,16 @@
 					</div> -->
 				</div>
 			</div>
+			<!-- Javascript innerHTML -->
+			<div id="contador">
+			</div>
 
       		<div id="detalhes_work">
-      			<label id="label_detalhes" class="control-label">Detalhes</label>
       		</div>
+      		
+			<!-- Javascript innerHTML -->
 			
+
           	<div class="box-footer">
 
             	<!-- <button type="submit" class="btn btn-success">

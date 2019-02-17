@@ -1,4 +1,4 @@
-    // START CRONOMETRO
+    // INICIAR CRONOMETRO
     $("#iniciaCronometro").click(function(){
     	//
     	if( document.getElementById('data_inicio').value === '' )
@@ -22,11 +22,12 @@
 			  date: date
 			  });
 			}
+	    iniciaCronoTimer();
 	    dataInicioInfo();
  		document.getElementById('iniciaCronometro').innerHTML = '<i class="fa fa-check"></i> Parar';
 	    }
     	//
-		else
+		else // PARAR CRONOMETRO
 	    {
 	    var $ele = $("#Datafinal");
 		var date = new Date();
@@ -91,16 +92,56 @@
      	document.getElementById('iniciaCronometro').innerHTML = '<i class="fa fa-check"></i> Iniciar';
 		$('#data_inicio, #data_final').val('').datetimepicker('update');
 		});
+	//
     // CANCELAR CRONOMETRO
     $("#cancelaCron").click(function(){
 	    location.reload()
 		});
     //
+    // CONTADOR DE TEMPO
+    function iniciaCronoTimer()
+    {
+    	// Set the date we're counting down to
+    	// var i = document.getElementById("data_inicio").value;
+		// var countDownDate = new Date("Jan 5, 2021 15:37:25").getTime();
+		var countDownDate = new Date("Jan 5, 2021 15:37:25").getTime();
+
+		// Update the count down every 1 second
+		var x = setInterval(function() {
+
+		  // Get todays date and time
+		  var now = new Date().getTime();
+		    
+		  // Find the distance between now and the count down date
+		  var distance = countDownDate - now;
+		    
+		  // Time calculations for days, hours, minutes and seconds
+		  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+		  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+		  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+		  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+		    
+		  // Output the result in an element with id="contador_main"
+		  document.getElementById("contador").innerHTML = "<label>" + days + "d " + hours + "h "
+		  + minutes + "m " + seconds + "s " + "</label>";
+
+		  document.getElementById("contador_main").innerHTML = '<a class="logo">' + days + "d " + hours + "h "
+		  + minutes + "m " + seconds + "s " + "</a>";
+		    
+		  // If the count down is over, write some text 
+		  if (distance < 0) {
+		    clearInterval(x);
+		    document.getElementById("contador").innerHTML = "EXPIRED";
+		  }
+		}, 1000);
+		// ** fim do cronoTimer
+    }
+    //
     // INFO CRONOMETRAGEM
     function dataInicioInfo()
     {
 	  var i = document.getElementById("data_inicio").value;
-	  document.getElementById("detalhes_work").innerHTML = "Data de Início: " + i;
+	  document.getElementById("detalhes_work").innerHTML += "Data de Início: " + i;
 	}
 	function dataFinalInfo()
     {
