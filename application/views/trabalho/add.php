@@ -4,9 +4,12 @@
     <div class="col-md-12">
       	<div class="box box-info">
             <div class="box-header with-border">
-              	<h3 class="box-title">Trabalho Add</h3>
+              	<h3 class="box-title">Iniciar CronoTimer</h3>
             </div>
-            <?php echo form_open('trabalho/add'); ?>
+            <?php 
+            $attributes = array('name' => 'form-cronotimer', 'id' => 'form-cronotimer');
+            echo form_open('trabalho/add', $attributes); 
+            ?>
           	<div class="box-body">
           		<div class="row clearfix">
 					
@@ -125,17 +128,22 @@
 			
           	<div class="box-footer">
 
-            	<button type="submit" class="btn btn-success">
+            	<!-- <button type="submit" class="btn btn-success">
             		<i class="fa fa-check"></i> Salvar
-            	</button>
+            	</button> -->
             	
-            	<button type="button" id="iniciaCronometro" class="btn btn-info">
+            	<button type="button" id="iniciaCronometro" class="btn btn-success">
             		<i class="fa fa-check"></i> Iniciar
+            	</button>
+
+            	<button type="button" onclick="zerarCronometro()" id="continuaCronometro" class="btn btn-info hide">
+            		<i class="fa fa-check"></i> Continuar
             	</button>
 
             	<button type="button" onclick="zerarCronometro()" id="resetCron" class="btn btn-danger">
             		<i class="fa fa-check"></i> Cancelar
             	</button>
+
 
           	</div>
 

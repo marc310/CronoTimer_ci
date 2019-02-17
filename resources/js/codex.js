@@ -1,14 +1,14 @@
-    //
+    // START CRONOMETRO
     $("#iniciaCronometro").click(function(){
     	//
-    	debugger
     	if( document.getElementById('data_inicio').value === '' )
 	    {
 	    //
 	    var $ele = $("#Datainicio");
 		var date = new Date();
 		var datePickerObject = $ele.data("DateTimePicker");
-
+			$('#iniciaCronometro').removeClass('btn-success');
+            $('#iniciaCronometro').addClass('btn-danger');
 			if (typeof datePickerObject !== "undefined")
 			{
 			  // it's already been Initialize . Just update the date.
@@ -31,7 +31,11 @@
 	    var $ele = $("#Datafinal");
 		var date = new Date();
 		var datePickerObject = $ele.data("DateTimePicker");
-
+			//document.getElementById("iniciaCronometro").disabled = true;
+			$('#iniciaCronometro').removeClass('btn-danger');
+            $('#iniciaCronometro').addClass('btn-secondary');
+            $('#continuaCronometro').removeClass('hide');
+            //
 			if (typeof datePickerObject !== "undefined")
 			{
 			  // it's already been Initialize . Just update the date.
@@ -39,6 +43,9 @@
 			}
 			else 
 			{
+			    //$('#btn-start-stop').removeClass('btn-success');
+                //$('#btn-start-stop').addClass('btn-danger');
+                //$('#navbar_timer').removeClass('hide');
 			  // it hasn't been initialized yet. Initialize it with the date.
 			  $ele.datetimepicker({
 			  format : 'DD/MM/YYYY HH:mm:ss',
@@ -47,15 +54,33 @@
 			}
 
      	dataFinalInfo();
-     	document.getElementById('iniciaCronometro').innerHTML = '<i class="fa fa-check"></i> Continuar';
+     	document.getElementById('iniciaCronometro').innerHTML = '<i class="fa fa-check"></i> Parar';
      	//
 	    }
     });
-    // cancelar cronometragem reload
+    //
+    // VALIDAÇÃO DO FORMULARIO
+    function validaForm() {
+	  var tarefa = document.forms["form-cronotimer"]["tarefa_id"].value;
+	  var projeto = document.forms["form-cronotimer"]["projeto_id"].value;
+	  if (tarefa == "")
+	  {
+	    alert("Por Favor, Selecione a Tarefa");
+	    return false;
+	  }
+	  else if (projeto == "")
+	  {
+	  	alert("Por Favor, Selecione o Projeto");
+	    return false;
+	  }
+	}
+	//
+    // CANCELAR CRONOMETRO
     $("#resetCron").click(function(){
 	    location.reload()
 		});
     //
+    // INFO CRONOMETRAGEM
     function dataInicioInfo()
     {
 	  var i = document.getElementById("data_inicio").value;
