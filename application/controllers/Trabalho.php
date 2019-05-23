@@ -88,6 +88,12 @@ class Trabalho extends CI_Controller{
         }
         else
         {
+            $this->load->model('Moeda_model');
+            $data['all_moedas'] = $this->Moeda_model->get_all_moedas();
+            
+            $this->load->model('Cliente_model');
+            $data['cliente'] = $this->Cliente_model->get_all_clientes();
+
 			$this->load->model('Projeto_model');
 			$data['all_projetos'] = $this->Projeto_model->get_all_projetos();
 

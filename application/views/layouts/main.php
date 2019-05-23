@@ -46,6 +46,7 @@
                     <div class="navbar-custom-menu">
                         <ul class="nav navbar-nav">
                             <li class="dropdown user user-menu" id="contador_main">
+                                <a data-chronometer style="font-size: 22px">00:00:00</a>
                             </li>
                         <!-- User Account: style can be found in dropdown.less -->
                             <li class="dropdown user user-menu">
