@@ -1,33 +1,33 @@
 <?php
-/* 
+/*
  * Desenvolvido por Marcelo Motta
  * www.marcelomotta.com
  */
- 
+
 class Cliente extends CI_Controller{
     function __construct()
     {
         parent::__construct();
         $this->load->model('Cliente_model');
-    } 
+    }
 
     /*
      * Listing of clientes
      */
     function index()
     {
-        $params['limit'] = 10; 
+        $params['limit'] = 10;
         $params['offset'] = ($this->input->get('per_page')) ? $this->input->get('per_page') : 0;
-        
+
         $config = $this->config->item('pagination');
         $config['base_url'] = site_url('cliente/index?');
         $config['total_rows'] = $this->Cliente_model->get_all_clientes_count();
-        $config['per_page'] = 10; 
+        $config['per_page'] = 10;
 
         $this->pagination->initialize($config);
 
         $data['clientes'] = $this->Cliente_model->get_all_clientes($params);
-        
+
         $data['_view'] = 'cliente/index';
         $this->load->view('layouts/main',$data);
     }
@@ -38,16 +38,16 @@ class Cliente extends CI_Controller{
     function add()
     {   
         $now = new DateTime();
-        $hoje = $now->format('Y-m-d'); 
+        $hoje = $now->format('Y-m-d');
 
         $this->load->library('form_validation');
 
 		$this->form_validation->set_rules('preco_hora','Preco Hora','decimal');
 		$this->form_validation->set_rules('email','Email','valid_email');
 		$this->form_validation->set_rules('nome','Nome','required');
-		
-		if($this->form_validation->run())     
-        {   
+
+		if($this->form_validation->run())
+        {
             $params = array(
 				'moeda_id' => $this->input->post('moeda_id'),
 				'status' => $this->input->post('status'),
@@ -58,7 +58,7 @@ class Cliente extends CI_Controller{
 				'preco_hora' => $this->input->post('preco_hora'),
 				'data_cadastro' => $hoje,
             );
-            
+
             $cliente_id = $this->Cliente_model->add_cliente($params);
             redirect('cliente/index');
         }
@@ -66,20 +66,20 @@ class Cliente extends CI_Controller{
         {
 			$this->load->model('Moeda_model');
 			$data['all_moedas'] = $this->Moeda_model->get_all_moedas();
-            
+
             $data['_view'] = 'cliente/add';
             $this->load->view('layouts/main',$data);
         }
-    }  
+    }
 
     /*
      * Editing a cliente
      */
     function edit($id_cliente)
-    {   
+    {
         // check if the cliente exists before trying to edit it
         $data['cliente'] = $this->Cliente_model->get_cliente($id_cliente);
-        
+
         if(isset($data['cliente']['id_cliente']))
         {
             $now = new DateTime();
@@ -90,9 +90,9 @@ class Cliente extends CI_Controller{
 			$this->form_validation->set_rules('preco_hora','Preco Hora','decimal');
 			$this->form_validation->set_rules('email','Email','valid_email');
 			$this->form_validation->set_rules('nome','Nome','required');
-		
-			if($this->form_validation->run())     
-            {   
+
+			if($this->form_validation->run())
+            {
                 $params = array(
 					'moeda_id' => $this->input->post('moeda_id'),
 					'status' => $this->input->post('status'),
@@ -103,8 +103,8 @@ class Cliente extends CI_Controller{
 					'preco_hora' => $this->input->post('preco_hora'),
 					'alterado_em' => $hoje,
                 );
-                
-                $this->Cliente_model->update_cliente($id_cliente,$params);            
+
+                $this->Cliente_model->update_cliente($id_cliente,$params);
                 redirect('cliente/index');
             }
             else
@@ -118,12 +118,12 @@ class Cliente extends CI_Controller{
         }
         else
             show_error('The cliente you are trying to edit does not exist.');
-    } 
+    }
 
     /*
     * Ler produto
     */
-    // public function read($id) 
+    // public function read($id)
     // {
     //     $row = $this->Cliente_model->get_by_id($id);
     //     if ($row) {
@@ -157,5 +157,5 @@ class Cliente extends CI_Controller{
         else
             show_error('The cliente you are trying to delete does not exist.');
     }
-    
+
 }

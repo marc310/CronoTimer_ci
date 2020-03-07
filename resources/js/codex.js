@@ -1,3 +1,10 @@
+// declaração de constantes mais usadas
+const $i = document.getElementById("data_inicio");
+const $f = document.getElementById("data_final");
+
+const $Ti = document.getElementById("inputInicio");
+const $Tf = document.getElementById("inputFinal");
+
 (() => {
 
   let hours = `00`,
@@ -23,26 +30,25 @@
     if (minutes > 59) {
       minutes = `00`
       hours ++
-      
+
       if (hours < 10) hours = `0` + hours
     }
 	//
     chronometerDisplay.textContent = `${hours}:${minutes}:${seconds}`
     chronometerCont.textContent = `${hours}:${minutes}:${seconds}`
-
   }
 //
 //*************************************************************************************************//
 // INICIA CRONOMETRO FUNCTION
     $("#iniciaCronometro").click(function(){
     	//
-    	if( document.getElementById('data_inicio').value === '' )
+    	if( $i.value === '' )
 	     {
     	// INICIAR CRONOMETRO
 	    // inicia contagem do relogio
 	    chronometerCall = setInterval(chronometer, 1000)
 	    //
-	    var $ele = $("#Datainicio");
+    var $ele = $("#Datainicio");
 		var date = new Date();
 		var dataTempo = date.getTime();
 		var datePickerObject = $ele.data("DateTimePicker");
@@ -53,7 +59,7 @@
 			  // it's already been Initialize . Just update the date.
 			  datePickerObject.date(date);
 			}
-			else 
+			else
 			{
 			  // it hasn't been initialized yet. Initialize it with the date.
 			  $ele.datetimepicker({
@@ -61,34 +67,35 @@
 			  date: date
 			  });
 			}
- 		document.getElementById('inputInicio').value = dataTempo;
+ 		$Ti.value = dataTempo;
  		document.getElementById('iniciaCronometro').innerHTML = '<i class="fa fa-check"></i> Parar';
 	    dataInicioInfo();
 	    }
     	//
-		else // PARAR CRONOMETRO
+		else 
+		// PARAR CRONOMETRO
 	    {
     	// para contagem do relogio
     	clearInterval(chronometerCall)
     	//
-	    var $ele = $("#Datafinal");
-		var date = new Date();
-		var dataTempo = date.getTime();
-		var datePickerObject = $ele.data("DateTimePicker");
-			//document.getElementById("iniciaCronometro").disabled = true;
-			$('#iniciaCronometro').removeClass('btn-danger');
-            $('#iniciaCronometro').addClass('btn-secondary');
-            $('#cleanCronometro').removeClass('hide');
-            $('#botaoSalvarTime').removeClass('hide');
-            $('#cancelaCron').removeClass('btn-secondary');
-            $('#cancelaCron').addClass('btn-danger');
+		var $ele = $("#Datafinal");
+			var date = new Date();
+			var dataTempo = date.getTime();
+			var datePickerObject = $ele.data("DateTimePicker");
+				//document.getElementById("iniciaCronometro").disabled = true;
+				$('#iniciaCronometro').removeClass('btn-danger');
+				$('#iniciaCronometro').addClass('btn-secondary');
+				$('#cleanCronometro').removeClass('hide');
+				$('#botaoSalvarTime').removeClass('hide');
+				$('#cancelaCron').removeClass('btn-secondary');
+				$('#cancelaCron').addClass('btn-danger');
             //
 			if (typeof datePickerObject !== "undefined")
 			{
 			  // it's already been Initialize . Just update the date.
 			  datePickerObject.date(date);
 			}
-			else 
+			else
 			{
 			  // it hasn't been initialized yet. Initialize it with the date.
 			  $ele.datetimepicker({
@@ -99,7 +106,8 @@
 
  		document.getElementById('inputFinal').value = dataTempo;
      	document.getElementById('iniciaCronometro').innerHTML = '<i class="fa fa-check"></i> Parar';
-     	dataFinalInfo();
+		 dataFinalInfo();
+		 verificaItemLivre();
      	//
 	    }
     });
@@ -132,13 +140,13 @@
 		// reset relogio
 		clearInterval(chronometerCall)
 	    chronometerDisplay.textContent = `00:00:00`
-	    
+
 	      hours = `00`,
 	      minutes = `00`,
 	      seconds = `00`
         //
         chronometerCont.textContent = `00:00:00`
-	    
+
 	      hours = `00`,
 	      minutes = `00`,
 	      seconds = `00`
@@ -167,22 +175,107 @@
     // INFO CRONOMETRAGEM
     function dataInicioInfo()
     {
-	  var i = document.getElementById("data_inicio").value;
-	  var Ti = document.getElementById("inputInicio").value;
+	  i = $i.value;
+	  Ti = $Ti.value;
+
 	  document.getElementById("detalhes_work").innerHTML += "Data de Início: " + i + " Timestamp Inicial de: " + Ti;
 	}
 	function dataFinalInfo()
-    {
-	  var f = document.getElementById("data_final").value;
-	  var Tf = document.getElementById("inputFinal").value;
+	{
+		f = $f.value;
+		Tf = $Tf.value;
+
 	  document.getElementById("detalhes_work").innerHTML += "<br>" + "Data Final: " + f + " Timestamp Final de: " + Tf;
+	  timeDifference();
 	}
+	// passa o registro de horas somadas trabalhadas para o input
+	// hora do calculo, algoritimo pra saber as horas trabalhadas entre os registros 
+	// do timestamp da entrada de trabalho.
+
+	function timeDifference() {
+
+		var difference = $Tf.value - $Ti.value;
+
+		var daysDifference = Math.floor(difference/1000/60/60/24);
+		difference -= daysDifference*1000*60*60*24
+
+		var hoursDifference = Math.floor(difference/1000/60/60);
+		difference -= hoursDifference*1000*60*60
+
+		var minutesDifference = Math.floor(difference/1000/60);
+		difference -= minutesDifference*1000*60
+
+		var secondsDifference = Math.floor(difference/1000);
+	
+		document.getElementById("horas").value = secondsDifference;
+
+	}
+	// document.write('difference = ' + daysDifference + ' day/s ' + hoursDifference + ' hour/s ' + minutesDifference + ' minute/s ' + secondsDifference + ' second/s ');
+	 
+
+	// function totalHoras(){
+	// 	var Tfinal = document.getElementById("inputFinal").value;
+	// 	var Tinicio = document.getElementById("inputInicio").value;
+	// 	// soma dados retornados
+	// 	var somaHoras = Tinicio - Tfinal;
+	// 	document.getElementById("horas").value = somaHoras;
+	// }
+
+	// limpa status list de detalhes de trabalho
 	function clearInfo()
 	{
 		document.getElementById("detalhes_work").innerHTML = "";
 	}
 	//
 	//
+	// ESCUTADORES DE EVENTO
+	// estes devem informar se um cliente foi alterado na seleção da entrada de trabalho
+	//
+	function verificaItemLivre(){
+	var livre = document.getElementById("livre");
+		if (livre.checked == true){
+			livre.value = 1; // por hora
+		} else { 
+			//direciona ao valor padrao se estiver vazio
+			livre.value = 2; // por projeto
+		}
+	}
+
+	// converte dados da input principal pra registro
+	function converteHorasInt(){
+		
+	}
+	
+	// var activities = document.getElementById("projeto_id");
+	// activities.addEventListener("click", function() {
+	// 	var options = activities.querySelectorAll("option");
+	// 	var count = options.length;
+	// 	if(typeof(count) === "undefined" || count < 2)
+	// 	{
+	// 		addActivityItem();
+	// 	}
+	// });
+
+	// activities.addEventListener("change", function() {
+	// 	if(activities.value == "addNew")
+	// 	{
+	// 		addActivityItem();
+	// 	}
+	// 	console.log(activities.value);
+	// });
+
+	// function addActivityItem() {
+	// 	alert("Adding an item");
+		
+	// 	var option = document.createElement("option");
+	// 	option.value = "test";
+	// 	option.innerHTML = "test";
+		
+	// 	activities.appendChild(option);
+	// }
+
+//
+//
     // função calcular horas
     // pega o valor de inicio e o valor final e coloca em duas variaveis
     // converte o valor pra numero q possa ser calculado
@@ -232,24 +325,24 @@
 		//   var countDownDate = tempoInicial;
 		//   // Get todays date and time
 		//   var now = new Date().getTime();
-		    
+
 		//   // Find the distance between now and the count down date
 		//   var distance = countDownDate - now;
-		    
+
 		//   // Time calculations for days, hours, minutes and seconds
 		//   var days = Math.floor(distance / (1000 * 60 * 60 * 24));
 		//   var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
 		//   var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
 		//   var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-		    
+
 		//   // Output the result in an element with id="contador_main"
 		//   document.getElementById("contador").innerHTML = "<label>" + days + "d " + hours + "h "
 		//   + minutes + "m " + seconds + "s " + "</label>";
 
 		//   document.getElementById("contador_main").innerHTML = '<a class="logo">' + days + "d " + hours + "h "
 		//   + minutes + "m " + seconds + "s " + "</a>";
-		    
-		//   // If the count down is over, write some text 
+
+		//   // If the count down is over, write some text
 		//   if (distance < 0) {
 		//     clearInterval(x);
 		//     document.getElementById("contador").innerHTML = "EXPIRED";

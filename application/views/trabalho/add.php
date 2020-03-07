@@ -22,7 +22,7 @@
 					<div class="col-md-6">
 						<label for="projeto_id" class="control-label"><span class="text-danger">*</span>Projeto</label> <span class="required">*</span>
 						<div class="form-group">
-							<select name="projeto_id" class="form-control" required="required">
+							<select name="projeto_id" id="projeto_id" class="form-control" required="required">
 								<option value="">Selecione o Projeto</option>
 								<?php
 								foreach($all_projetos as $projeto)
@@ -53,7 +53,7 @@
 							<span class="text-danger"><?php echo form_error('tarefa_id');?></span>
 						</div>
 					</div>
-					<div class="col-md-6">
+					<div class="col-md-12">
 						<label for="nota" class="control-label">Nota</label>
 						<div class="form-group">
 							<input type="text" name="nota" value="<?php echo $this->input->post('nota'); ?>" class="form-control" id="nota" />
@@ -87,39 +87,50 @@
 					<div class="col-md-6">
 						<label for="horas" class="control-label">Horas</label>
 						<div class="form-group">
-							<input type="text" name="horas" value="<?php echo $this->input->post('horas'); ?>" class="form-control" id="horas" />
+							<input type="text" name="horas" id="horas" value="<?php echo $this->input->post('horas'); ?>" class="form-control" id="horas" />
 						</div>
 					</div>
-					<div class="col-md-6">
+					<div class="col-md-6" hidden>
 						<label for="horaInt" class="control-label">HoraInt</label>
 						<div class="form-group">
 							<input type="text" name="horaInt" value="<?php echo $this->input->post('horaInt'); ?>" class="form-control" id="horaInt" />
 						</div>
 					</div>
-					<div class="col-md-6">
+					<div class="col-md-6" hidden>
 						<label for="moeda" class="control-label">Moeda</label>
 						<div class="form-group">
 							<input type="text" name="moeda" value="<?php echo $this->input->post('moeda'); ?>" class="form-control" id="moeda" />
 						</div>
 					</div>
-					<div class="col-md-6">
+					<div class="col-md-6" hidden>
 						<label for="rendimento" class="control-label">Rendimento</label>
 						<div class="form-group">
 							<input type="text" name="rendimento" value="<?php echo $this->input->post('rendimento'); ?>" class="form-control" id="rendimento" />
 						</div>
 					</div>
-					<!-- <div class="col-md-6">
+					<div class="col-md-6" hidden>
 						<label for="fatura_id" class="control-label">Fatura Id</label>
 						<div class="form-group">
 							<input type="text" name="fatura_id" value="<?php echo $this->input->post('fatura_id'); ?>" class="form-control" id="fatura_id" />
 						</div>
 					</div>
-					<div class="col-md-6">
+					<div class="col-md-6" >
 						<div class="form-group">
-							<input type="checkbox" name="livre" value="1"  id="livre" />
-							<label for="livre" class="control-label">Livre</label>
+
+						<div class="custom-control custom-radio">
+							<input type="radio" id="porHora" value="1" name="tipo_cobranca" class="custom-control-input">
+							<label class="custom-control-label" for="porHora">Por Hora</label>
 						</div>
-					</div> -->
+						<div class="custom-control custom-radio">
+							<input type="radio" id="porProjeto" value="2" name="tipo_cobranca" class="custom-control-input">
+							<label class="custom-control-label" for="porProjeto">Por Projeto</label>
+						</div>
+
+
+							<input type="checkbox" name="livre" value="1"  id="livre" onclick="verificaItemLivre()" />
+							<label for="livre" class="control-label">Livre</label>
+						</div>	
+					</div>
 				</div>
 			</div>
 			<!-- Javascript innerHTML -->
@@ -158,17 +169,20 @@
           	</div>
 
 
-          	 <?
+          	 <?php
 
           		// TESTE DE FUNÇÃO PELO HELPER
 
+				$this->load->helper("funcoes");
 				$valor = "100000000";
 
 				echo "Valor Original: R$ " . $valor;
 
 				echo "<br />";
 
-				$this->load->helper("funcoes");
+				echo "id do projeto: " . $projeto['id_projeto'];
+
+				echo "<br />";
 
 				echo "Valor Formatado: R$ " . formata_preco($valor);
 			?>

@@ -67,8 +67,7 @@ class Trabalho extends CI_Controller{
 		if($this->form_validation->run())     
         {   
             $params = array(
-				'livre' => $this->input->post('livre'),
-				'faturado' => $this->input->post('faturado'),
+                'faturado' => $this->input->post('faturado'),
 				'projeto_id' => $this->input->post('projeto_id'),
 				'tarefa_id' => $this->input->post('tarefa_id'),
 				'nota' => $this->input->post('nota'),
@@ -81,6 +80,7 @@ class Trabalho extends CI_Controller{
 				'moeda' => $this->input->post('moeda'),
 				'rendimento' => $this->input->post('rendimento'),
 				'fatura_id' => $this->input->post('fatura_id'),
+				'livre' => $this->input->post('livre'),
             );
             
             $trabalho_id = $this->Trabalho_model->add_trabalho($params);
