@@ -117,18 +117,15 @@
 					<div class="col-md-6" >
 						<div class="form-group">
 
-						<div class="custom-control custom-radio">
-							<input type="radio" id="porHora" value="1" name="tipo_cobranca" class="custom-control-input">
-							<label class="custom-control-label" for="porHora">Por Hora</label>
-						</div>
-						<div class="custom-control custom-radio">
-							<input type="radio" id="porProjeto" value="2" name="tipo_cobranca" class="custom-control-input">
-							<label class="custom-control-label" for="porProjeto">Por Projeto</label>
-						</div>
-
-
-							<input type="checkbox" name="livre" value="1"  id="livre" onclick="verificaItemLivre()" />
-							<label for="livre" class="control-label">Livre</label>
+							<div class="custom-control custom-radio">
+								<input type="radio" id="porHora" value="1" name="livre" class="custom-control-input">
+								<label class="custom-control-label" for="porHora">Por Hora</label>
+							</div>
+							<div class="custom-control custom-radio">
+								<input type="radio" id="porProjeto" value="2" name="livre" class="custom-control-input">
+								<label class="custom-control-label" for="porProjeto">Por Projeto</label>
+							</div>
+							
 						</div>	
 					</div>
 				</div>

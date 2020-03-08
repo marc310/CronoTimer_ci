@@ -107,7 +107,7 @@ const $Tf = document.getElementById("inputFinal");
  		document.getElementById('inputFinal').value = dataTempo;
      	document.getElementById('iniciaCronometro').innerHTML = '<i class="fa fa-check"></i> Parar';
 		 dataFinalInfo();
-		 verificaItemLivre();
+		//  verificaItemLivre();
      	//
 	    }
     });
@@ -173,15 +173,13 @@ const $Tf = document.getElementById("inputFinal");
 
     //
     // INFO CRONOMETRAGEM
-    function dataInicioInfo()
-    {
+    function dataInicioInfo() {
 	  i = $i.value;
 	  Ti = $Ti.value;
 
 	  document.getElementById("detalhes_work").innerHTML += "Data de Início: " + i + " Timestamp Inicial de: " + Ti;
 	}
-	function dataFinalInfo()
-	{
+	function dataFinalInfo() {
 		f = $f.value;
 		Tf = $Tf.value;
 
@@ -191,27 +189,29 @@ const $Tf = document.getElementById("inputFinal");
 	// passa o registro de horas somadas trabalhadas para o input
 	// hora do calculo, algoritimo pra saber as horas trabalhadas entre os registros 
 	// do timestamp da entrada de trabalho.
-
+	// novo coment
 	function timeDifference() {
-
 		var difference = $Tf.value - $Ti.value;
 
-		var daysDifference = Math.floor(difference/1000/60/60/24);
-		difference -= daysDifference*1000*60*60*24
+			var daysDifference = Math.floor(difference/1000/60/60/24);
+			difference -= daysDifference*1000*60*60*24
+			
+			var hoursDifference = Math.floor(difference/1000/60/60);
+			difference -= hoursDifference*1000*60*60
 
-		var hoursDifference = Math.floor(difference/1000/60/60);
-		difference -= hoursDifference*1000*60*60
+			var minutesDifference = Math.floor(difference/1000/60);
+			difference -= minutesDifference*1000*60
 
-		var minutesDifference = Math.floor(difference/1000/60);
-		difference -= minutesDifference*1000*60
+			var secondsDifference = Math.floor(difference/1000);
 
-		var secondsDifference = Math.floor(difference/1000);
+		var horaCalculada = parseFloat(secondsDifference/3600);
+
+		console.log('hora calculada' + horaCalculada);
 	
-		document.getElementById("horas").value = secondsDifference;
+		document.getElementById("horas").value = horaCalculada;
 
 	}
 	// document.write('difference = ' + daysDifference + ' day/s ' + hoursDifference + ' hour/s ' + minutesDifference + ' minute/s ' + secondsDifference + ' second/s ');
-	 
 
 	// function totalHoras(){
 	// 	var Tfinal = document.getElementById("inputFinal").value;
@@ -231,21 +231,27 @@ const $Tf = document.getElementById("inputFinal");
 	// ESCUTADORES DE EVENTO
 	// estes devem informar se um cliente foi alterado na seleção da entrada de trabalho
 	//
-	function verificaItemLivre(){
-	var livre = document.getElementById("livre");
-		if (livre.checked == true){
-			livre.value = 1; // por hora
-		} else { 
-			//direciona ao valor padrao se estiver vazio
-			livre.value = 2; // por projeto
-		}
-	}
+	document.getElementById("data_inicio").addEventListener("change", myFunction);
 
-	// converte dados da input principal pra registro
-	function converteHorasInt(){
-		
-	}
-	
+		function myFunction() {
+			dataInicioInfo();
+			dataFinalInfo();
+			timeDifference();
+		}
+	//
+	//
+	//
+
+	// function verificaItemLivre(){
+	// var livre = document.getElementById("livre");
+	// 	if (livre.checked == true){
+	// 		livre.value = 1; // por hora
+	// 	} else { 
+	// 		//direciona ao valor padrao se estiver vazio
+	// 		livre.value = 2; // por projeto
+	// 	}
+	// }
+
 	// var activities = document.getElementById("projeto_id");
 	// activities.addEventListener("click", function() {
 	// 	var options = activities.querySelectorAll("option");
