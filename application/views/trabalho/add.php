@@ -6,10 +6,12 @@
             <div class="box-header with-border">
               	<h3 class="box-title">Iniciar CronoTimer</h3>
             </div>
+
             <?php
             $attributes = array('name' => 'form-cronotimer', 'id' => 'form-cronotimer');
             echo form_open('trabalho/add', $attributes);
             ?>
+
           	<div class="box-body">
           		<div class="row clearfix">
 
@@ -72,13 +74,13 @@
 							<input type="text" name="data_final" value="<?php echo $this->input->post('data_final'); ?>" class="has-datetimepicker form-control" id="data_final" required="required"/>
 						</div>
 					</div>
-					<div class="col-md-6 hide">
+					<div class="col-md-6">
 						<label for="inicio" class="control-label">Inicio</label>
 						<div class="form-group" id="inicio">
 							<input type="text" name="inicio" id="inputInicio" value="<?php echo $this->input->post('inicio'); ?>" class="form-control"  />
 						</div>
 					</div>
-					<div class="col-md-6 hide">
+					<div class="col-md-6">
 						<label for="final" class="control-label">Final</label>
 						<div class="form-group">
 							<input type="text" name="final" value="<?php echo $this->input->post('final'); ?>" class="form-control" id="inputFinal" />
@@ -125,7 +127,7 @@
 								<input type="radio" id="porProjeto" value="2" name="livre" class="custom-control-input">
 								<label class="custom-control-label" for="porProjeto">Por Projeto</label>
 							</div>
-							
+
 						</div>	
 					</div>
 				</div>
@@ -174,10 +176,6 @@
 				$valor = "100000000";
 
 				echo "Valor Original: R$ " . $valor;
-
-				echo "<br />";
-
-				echo "id do projeto: " . $projeto['id_projeto'];
 
 				echo "<br />";
 

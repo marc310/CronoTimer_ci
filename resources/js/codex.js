@@ -48,33 +48,31 @@ const $Tf = document.getElementById("inputFinal");
 	    // inicia contagem do relogio
 	    chronometerCall = setInterval(chronometer, 1000)
 	    //
-    var $ele = $("#Datainicio");
-		var date = new Date();
-		var dataTempo = date.getTime();
-		var datePickerObject = $ele.data("DateTimePicker");
-			$('#iniciaCronometro').removeClass('btn-success');
-            $('#iniciaCronometro').addClass('btn-danger');
-			if (typeof datePickerObject !== "undefined")
-			{
-			  // it's already been Initialize . Just update the date.
-			  datePickerObject.date(date);
-			}
-			else
-			{
-			  // it hasn't been initialized yet. Initialize it with the date.
-			  $ele.datetimepicker({
-			  format : 'DD/MM/YYYY HH:mm:ss',
-			  date: date
-			  });
-			}
- 		$Ti.value = dataTempo;
- 		document.getElementById('iniciaCronometro').innerHTML = '<i class="fa fa-check"></i> Parar';
-	    dataInicioInfo();
+		var $ele = $("#Datainicio");
+			var date = new Date();
+			var dataTempo = date.getTime();
+			var datePickerObject = $ele.data("DateTimePicker");
+				$('#iniciaCronometro').removeClass('btn-success');
+				$('#iniciaCronometro').addClass('btn-danger');
+				
+					if (typeof datePickerObject !== "undefined") {
+					// it's already been Initialize . Just update the date.
+					datePickerObject.date(date);
+					}
+					else {
+					// it hasn't been initialized yet. Initialize it with the date.
+					$ele.datetimepicker({
+					format : 'DD/MM/YYYY HH:mm:ss',
+					date: date
+					});
+					}
+			$Ti.value = dataTempo; // insere o timestamp inicial
+			document.getElementById('iniciaCronometro').innerHTML = '<i class="fa fa-check"></i> Parar';
+			dataInicioInfo();
 	    }
     	//
-		else 
+		else {
 		// PARAR CRONOMETRO
-	    {
     	// para contagem do relogio
     	clearInterval(chronometerCall)
     	//
@@ -104,7 +102,7 @@ const $Tf = document.getElementById("inputFinal");
 			  });
 			}
 
- 		document.getElementById('inputFinal').value = dataTempo;
+ 		$Tf.value = dataTempo; //insere o timestamp final
      	document.getElementById('iniciaCronometro').innerHTML = '<i class="fa fa-check"></i> Parar';
 		 dataFinalInfo();
 		//  verificaItemLivre();
@@ -220,7 +218,7 @@ const $Tf = document.getElementById("inputFinal");
 	// 	var somaHoras = Tinicio - Tfinal;
 	// 	document.getElementById("horas").value = somaHoras;
 	// }
-
+	//
 	// limpa status list de detalhes de trabalho
 	function clearInfo()
 	{
@@ -228,17 +226,21 @@ const $Tf = document.getElementById("inputFinal");
 	}
 	//
 	//
+	//
+	function changeDropProject() {
+		var value = $("#projeto_id").val();
+		// valor pego na alteração do dropdown
+		console.log(value);
+	}
+	//
+	//
+	//
 	// ESCUTADORES DE EVENTO
 	// estes devem informar se um cliente foi alterado na seleção da entrada de trabalho
 	//
-	document.getElementById("data_inicio").addEventListener("change", myFunction);
-
-		function myFunction() {
-			dataInicioInfo();
-			dataFinalInfo();
-			timeDifference();
-		}
+	document.getElementById("projeto_id").addEventListener("change", changeDropProject);
 	//
+
 	//
 	//
 
