@@ -92,7 +92,7 @@ class Trabalho extends CI_Controller{
             $data['all_moedas'] = $this->Moeda_model->get_all_moedas();
             
             $this->load->model('Cliente_model');
-            $data['cliente'] = $this->Cliente_model->get_all_clientes();
+            $data['all_clientes'] = $this->Cliente_model->get_all_clientes();
 
 			$this->load->model('Projeto_model');
 			$data['all_projetos'] = $this->Projeto_model->get_all_projetos();
@@ -183,6 +183,35 @@ class Trabalho extends CI_Controller{
     /***************************************************/
     /* Lista de Funções cronoTimer
     /***************************************************/
+    // TODO ..
+    // IMPLEMENTAR HELP ** 
+    // HELP LINK: https://www.youtube.com/watch?v=bxA6M9LYrPk&list=WL&index=14&t=0s
+    // UMA SITUAÇÃO SIMILAR ONDE O COUNTRY SELECIONA O STATE 
+    // 
+    // CONTROLLER FUNCTION
+    // function fetch_state()
+    // {
+    //     if($this->input->post('country_id'))
+    //     {
+    //     echo $this->dynamic_dependent_model->fetch_state($this->input->post('country_id'));
+    //     }
+    // }
+    //
+    // MODEL FUNCTION
+    // function fetch_state($country_id)
+    // {
+    // $this->db->where('country_id', $country_id);
+    // $this->db->order_by('state_name', 'ASC');
+    // $query = $this->db->get('state');
+    // $output = '<option value="">Select State</option>';
+    // foreach($query->result() as $row)
+    // {
+    // $output .= '<option value="'.$row->state_id.'">'.$row->state_name.'</option>';
+    // }
+    // return $output;
+    // }
+
+
     public function inicia_cronometro()
     {
         // $datestring = 'Year: %Y Month: %m Day: %d - %h:%i %a';

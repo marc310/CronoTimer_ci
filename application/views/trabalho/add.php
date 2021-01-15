@@ -21,6 +21,25 @@
 							<label for="faturado" class="control-label">Faturado</label>
 						</div>
 					</div> -->
+
+					<div class="col-md-6">
+						<label for="cliente_id" class="control-label"><span class="text-danger">*</span>Cliente</label> <span class="required">*</span>
+						<div class="form-group">
+							<select name="cliente_id" id="cliente_id" class="form-control" required="required">
+								<option value="">Selecione o Cliente</option>
+								<?php
+								foreach($all_clientes as $cliente)
+								{
+									// $selected = ($cliente['id_cliente'] == $this->input->post('cliente_id')) ? ' selected="selected"' : "";
+
+									echo '<option value="'.$cliente['id_cliente'].'" '.$selected.'>'.$cliente['nome'].'</option>';
+								}
+								?>
+							</select>
+							<span class="text-danger"><?php echo form_error('cliente_id');?></span>
+						</div>
+					</div>
+
 					<div class="col-md-6">
 						<label for="projeto_id" class="control-label"><span class="text-danger">*</span>Projeto</label> <span class="required">*</span>
 						<div class="form-group">
@@ -74,19 +93,19 @@
 							<input type="text" name="data_final" value="<?php echo $this->input->post('data_final'); ?>" class="has-datetimepicker form-control" id="data_final" required="required"/>
 						</div>
 					</div>
-					<div class="col-md-6">
+					<div class="col-md-6" hidden>
 						<label for="inicio" class="control-label">Inicio</label>
 						<div class="form-group" id="inicio">
 							<input type="text" name="inicio" id="inputInicio" value="<?php echo $this->input->post('inicio'); ?>" class="form-control"  />
 						</div>
 					</div>
-					<div class="col-md-6">
+					<div class="col-md-6" hidden>
 						<label for="final" class="control-label">Final</label>
 						<div class="form-group">
 							<input type="text" name="final" value="<?php echo $this->input->post('final'); ?>" class="form-control" id="inputFinal" />
 						</div>
 					</div>
-					<div class="col-md-6">
+					<div class="col-md-6" hidden>
 						<label for="horas" class="control-label">Horas</label>
 						<div class="form-group">
 							<input type="text" name="horas" id="horas" value="<?php echo $this->input->post('horas'); ?>" class="form-control" id="horas" />
@@ -156,6 +175,10 @@
             		<i class="fa fa-check"></i> Iniciar
             	</button>
 
+				<button type="button" id="pararCronometro" class="btn btn-Danger hide">
+            		<i class="fa fa-check"></i> Parar
+            	</button>
+
             	<button type="button" id="cleanCronometro" class="btn btn-secondary hide">
             		<i class="fa fa-check"></i> Limpar
             	</button>
@@ -190,6 +213,54 @@
 </div>
 
 
-<script src="<?php echo site_url('resources/js/codex.js');?>"></script>
+<script src="<?php echo site_url('resources/js/timer.js');?>"></script>
 <!-- ###  SCRIPT DATEPICKER  ### -->
 <script src="<?php echo site_url('resources/js/global.js');?>"></script>
+
+<script>
+// $(document).ready(function(){
+
+// $('#country').change(function(){
+//   var country_id = $('#country').val();
+//   if(country_id != '')
+//   {
+//    $.ajax({
+//     url:"<?php echo base_url(); ?>dynamic_dependent/fetch_state",
+//     method:"POST",
+//     data:{country_id:country_id},
+//     success:function(data)
+//     {
+//      $('#state').html(data);
+//      $('#city').html('<option value="">Select City</option>');
+//     }
+//    });
+//   }
+//   else
+//   {
+//    $('#state').html('<option value="">Select State</option>');
+//    $('#city').html('<option value="">Select City</option>');
+//   }
+//  });
+
+//  $('#state').change(function(){
+//   var state_id = $('#state').val();
+//   if(state_id != '')
+//   {
+//    $.ajax({
+//     url:"<?php echo base_url(); ?>dynamic_dependent/fetch_city",
+//     method:"POST",
+//     data:{state_id:state_id},
+//     success:function(data)
+//     {
+//      $('#city').html(data);
+//     }
+//    });
+//   }
+//   else
+//   {
+//    $('#city').html('<option value="">Select City</option>');
+//   }
+//  });
+ 
+// });
+</script>

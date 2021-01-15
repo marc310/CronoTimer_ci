@@ -39,12 +39,10 @@ const $Tf = document.getElementById("inputFinal");
   }
 //
 //*************************************************************************************************//
-// INICIA CRONOMETRO FUNCTION
-    $("#iniciaCronometro").click(function(){
-    	//
-    	if( $i.value === '' )
-	     {
-    	// INICIAR CRONOMETRO
+//
+	// INICIAR O TIMER
+	function iniciarTimer(){
+		// CHAMA AS FUNÇÕES ENCADEADAS AO INICIAR CRONOMETRO
 	    // inicia contagem do relogio
 	    chronometerCall = setInterval(chronometer, 1000)
 	    //
@@ -52,8 +50,9 @@ const $Tf = document.getElementById("inputFinal");
 			var date = new Date();
 			var dataTempo = date.getTime();
 			var datePickerObject = $ele.data("DateTimePicker");
-				$('#iniciaCronometro').removeClass('btn-success');
-				$('#iniciaCronometro').addClass('btn-danger');
+
+				// $('#iniciaCronometro').removeClass('btn-success');
+				// $('#iniciaCronometro').addClass('btn-danger');
 				
 					if (typeof datePickerObject !== "undefined") {
 					// it's already been Initialize . Just update the date.
@@ -67,49 +66,49 @@ const $Tf = document.getElementById("inputFinal");
 					});
 					}
 			$Ti.value = dataTempo; // insere o timestamp inicial
-			document.getElementById('iniciaCronometro').innerHTML = '<i class="fa fa-check"></i> Parar';
-			dataInicioInfo();
-	    }
-    	//
-		else {
-		// PARAR CRONOMETRO
+			// document.getElementById('iniciaCronometro').innerHTML = '<i class="fa fa-check"></i> Parar';
+	}
+	//
+	// PARAR O TIMER
+	function pararTimer(){
+		// CHAMA FUNÇÃO PARA PARAR CRONOMETRO
     	// para contagem do relogio
     	clearInterval(chronometerCall)
     	//
 		var $ele = $("#Datafinal");
-			var date = new Date();
-			var dataTempo = date.getTime();
-			var datePickerObject = $ele.data("DateTimePicker");
-				//document.getElementById("iniciaCronometro").disabled = true;
-				$('#iniciaCronometro').removeClass('btn-danger');
-				$('#iniciaCronometro').addClass('btn-secondary');
-				$('#cleanCronometro').removeClass('hide');
-				$('#botaoSalvarTime').removeClass('hide');
-				$('#cancelaCron').removeClass('btn-secondary');
-				$('#cancelaCron').addClass('btn-danger');
-            //
-			if (typeof datePickerObject !== "undefined")
-			{
-			  // it's already been Initialize . Just update the date.
-			  datePickerObject.date(date);
-			}
-			else
-			{
-			  // it hasn't been initialized yet. Initialize it with the date.
-			  $ele.datetimepicker({
-			  format : 'DD/MM/YYYY HH:mm:ss',
-			  date: date
-			  });
-			}
+			
+		var date = new Date();
+		var dataTempo = date.getTime();
+
+		var datePickerObject = $ele.data("DateTimePicker");
+			//document.getElementById("iniciaCronometro").disabled = true;
+			$('#iniciaCronometro').removeClass('btn-danger');
+			$('#iniciaCronometro').addClass('btn-secondary');
+			$('#cleanCronometro').removeClass('hide');
+			$('#botaoSalvarTime').removeClass('hide');
+			$('#cancelaCron').removeClass('btn-secondary');
+			$('#cancelaCron').addClass('btn-danger');
+		//
+		if (typeof datePickerObject !== "undefined")
+		{
+			// it's already been Initialize . Just update the date.
+			datePickerObject.date(date);
+		}
+		else
+		{
+			// it hasn't been initialized yet. Initialize it with the date.
+			$ele.datetimepicker({
+			format : 'DD/MM/YYYY HH:mm:ss',
+			date: date
+			});
+		}
 
  		$Tf.value = dataTempo; //insere o timestamp final
-     	document.getElementById('iniciaCronometro').innerHTML = '<i class="fa fa-check"></i> Parar';
+     	// document.getElementById('iniciaCronometro').innerHTML = '<i class="fa fa-check"></i> Parar';
 		 dataFinalInfo();
+		//  calculaDiferenca();
 		//  verificaItemLivre();
-     	//
-	    }
-    });
-    //
+	}
     // VALIDAÇÃO DO FORMULARIO
     function validaForm() {
 	  var tarefa = document.forms["form-cronotimer"]["tarefa_id"].value;
@@ -132,8 +131,31 @@ const $Tf = document.getElementById("inputFinal");
 	  }
 	}
 	//
-	// LIMPAR TIMER
+	// INICIA CRONOMETRO FUNCTION
+    $("#iniciaCronometro").click(function(){
+		//
+		if ( $i.value != ''){
+			calculaDiferenca();
+		}
+		//
+		$("#pararCronometro").removeClass('hide');
+		$("#iniciaCronometro").attr("disabled", true);
+		iniciarTimer();
+		dataInicioInfo();
+    });
+	//
+	//
+	$("#pararCronometro").click(function(){ 
+		pararTimer() 
+		if ( $i.value != ''){
+			calculaDiferenca();
+		}
+	});
+	//
+	// LIMPAR REGISTROS DO TIMER
 	$("#cleanCronometro").click(function(){
+		$("#iniciaCronometro").attr("disabled", false);
+		
 		clearInfo();
 		// reset relogio
 		clearInterval(chronometerCall)
@@ -157,7 +179,8 @@ const $Tf = document.getElementById("inputFinal");
         $('#cancelaCron').addClass('btn-secondary');
      	document.getElementById('iniciaCronometro').innerHTML = '<i class="fa fa-check"></i> Iniciar';
      	document.getElementById('inputFinal').value="";
-     	document.getElementById('inputInicio').value="";
+		document.getElementById('inputInicio').value="";
+		document.getElementById('horas').value="";
 		$('#data_inicio, #data_final').val('').datetimepicker('update');
 		});
 	//
@@ -168,8 +191,7 @@ const $Tf = document.getElementById("inputFinal");
     //
 })()
 //
-
-    //
+//////
     // INFO CRONOMETRAGEM
     function dataInicioInfo() {
 	  i = $i.value;
@@ -182,14 +204,16 @@ const $Tf = document.getElementById("inputFinal");
 		Tf = $Tf.value;
 
 	  document.getElementById("detalhes_work").innerHTML += "<br>" + "Data Final: " + f + " Timestamp Final de: " + Tf;
-	  timeDifference();
 	}
 	// passa o registro de horas somadas trabalhadas para o input
 	// hora do calculo, algoritimo pra saber as horas trabalhadas entre os registros 
 	// do timestamp da entrada de trabalho.
 	// novo coment
-	function timeDifference() {
+	
+	function calculaDiferenca() {
 		var difference = $Tf.value - $Ti.value;
+		// console.log('Diferença: ' + difference);
+		// console.log('=================================');
 
 			var daysDifference = Math.floor(difference/1000/60/60/24);
 			difference -= daysDifference*1000*60*60*24
@@ -202,11 +226,25 @@ const $Tf = document.getElementById("inputFinal");
 
 			var secondsDifference = Math.floor(difference/1000);
 
-		var horaCalculada = parseFloat(secondsDifference/3600);
+		
+			// TODO.. append + 1 se as horas forem maior que 24 ficando assim
+			// 1.2,03 para descrever 1 dia e 2 horas...
+			// gera resultado da diferença de horas em numero inteiro
+			var t = hoursDifference + (minutesDifference / 60) + (secondsDifference / 1000);
 
-		console.log('hora calculada' + horaCalculada);
-	
-		document.getElementById("horas").value = horaCalculada;
+			// console.log('Dias: ' + daysDifference);
+			// console.log('Horas: ' + hoursDifference);
+			// console.log('Minutos: ' + minutesDifference);
+			// console.log('Segundos: ' + secondsDifference);
+			console.log('=================================');
+			console.log('total em numero inteiro: ' + t);
+
+
+			
+			// console.log('hora calculada: ' + horaCalculada);
+
+		// seta total calculado no input Horas
+		// document.getElementById("horas").value = horaCalculada;
 
 	}
 	// document.write('difference = ' + daysDifference + ' day/s ' + hoursDifference + ' hour/s ' + minutesDifference + ' minute/s ' + secondsDifference + ' second/s ');
@@ -233,14 +271,51 @@ const $Tf = document.getElementById("inputFinal");
 		console.log(value);
 	}
 	//
+	// AO ALTERAR A DATA PELO INPUT
+	function changeDataInicio() {
+		if ($i.value != ''){
+			calculaDiferenca();
+		}
+		var value = $("#data_inicio").val();
+		// valor pego na alteração do datetime
+
+		var date = new Date(value);
+		var dataTempo = date.getTime();
+		$Ti.value = dataTempo; //altera o timestamp inicial
+
+		dataInicioInfo();
+		dataInicioInfo();
+
+
+		// console.log("value: " + value + " | date: " + date + " | dataTempo: " + dataTempo);
+	}
+	// AO ALTERAR A DATA PELO INPUT
+	function changeDataFinal() {
+		var value = $("#data_final").val();
+		// valor pego na alteração do datetime
+		
+		var date = new Date(value);
+		var dataTempo = date.getTime();
+		$Tf.value = dataTempo; //altera o timestamp final
+		
+		dataFinalInfo();
+		calculaDiferenca();
+
+		// console.log("value: " + value + " | date: " + date + " | dataTempo: " + dataTempo);
+	}
+	//
 	//
 	//
 	// ESCUTADORES DE EVENTO
 	// estes devem informar se um cliente foi alterado na seleção da entrada de trabalho
 	//
 	document.getElementById("projeto_id").addEventListener("change", changeDropProject);
+	
+		
+	$("#data_inicio").on("change paste keyup dp.change", function() { changeDataInicio(); });
+	$("#data_final").on("change paste keyup dp.change", function() { changeDataFinal(); });
+	
 	//
-
 	//
 	//
 
