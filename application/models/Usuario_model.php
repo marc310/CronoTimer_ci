@@ -40,6 +40,19 @@ class Usuario_model extends CI_Model
         }
         return $this->db->get('usuarios')->result_array();
     }
+
+    /*
+     * Get all users
+     */
+    function get_all_users($params = array())
+    {
+        $this->db->order_by('id', 'desc');
+        if(isset($params) && !empty($params))
+        {
+            $this->db->limit($params['limit'], $params['offset']);
+        }
+        return $this->db->get('users')->result_array();
+    }
         
     /*
      * function to add new usuario
